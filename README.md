@@ -11,8 +11,8 @@ I Expanded its feature a bit by allowing -w option top run command in a new wind
 	will run command top in a new window
 
 ## Notes
-*Tested with Ruby 1.8.7 on Mac OS X 10.7.2
-*I have not been able to make the script to run more than one command at once, for example
-	./dt "ls -l;top" won't work as expected. I will dig more into this when I know more ruby.
+* Tested with Ruby 1.8.7 on Mac OS X 10.7.2
+* I have not been able to make the script to run more than one command at once, for example
+  ./dt "ls -l;top" won't work as expected. I will dig more into this when I know more ruby.
 
 
