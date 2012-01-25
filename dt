@@ -1,0 +1,49 @@
+#!/usr/bin/env ruby
+# A ruby script to open a new tab (or a new window) and run command in it on Mac OS X
+# Modified based on the answer from tig regarding question posted at
+# http://superuser.com/questions/174576/opening-a-new-terminal-from-the-command-line-and-running-a-command-on-mac-os-x
+# Expands its feature a bit by allowing -w option top run command in a new window
+# Usage Example:
+#   ./dt ls -l
+#   ./dt -w top
+#
+# Tested with Ruby 1.8.7
+
+require 'rubygems'
+require 'shellwords'
+require 'appscript'
+
+class Terminal
+  include Appscript
+  attr_reader :terminal, :current_window
+  def initialize
+    @terminal = app('Terminal')
+    @current_window = terminal.windows.first
+    yield self
+  end
+
+  def tab(dir, command = nil, mode = 't')
+    app('System Events').application_processes['Terminal.app'].keystroke(mode, :using => :command_down)
+    cd_and_run dir, command
+  end
+
+  def cd_and_run(dir, command = nil)
+    run "clear; cd #{dir.shellescape}"
+    run command
+  end
+
+  def run(command)
+    command = command.shelljoin if command.is_a?(Array)
+    if command && !command.empty?
+      terminal.do_script(command, :in => current_window.tabs.last)
+    end
+  end
+end
+
+Terminal.new do |t|
+  if ARGV.length>=1 && ARGV.first == '-w'
+    t.tab(Dir.pwd, ARGV[1, ARGV.length], 'n')
+  else
+    t.tab(Dir.pwd, ARGV)
+  end
+end
