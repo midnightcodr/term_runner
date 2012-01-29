@@ -14,5 +14,5 @@ I Expanded its feature a bit by allowing -w option top run command in a new wind
 * Tested with Ruby 1.8.7 on Mac OS X 10.7.2
 * I have not been able to make the script to run more than one command at once, for example
   ./dt "ls -l;top" won't work as expected. I will dig more into this when I know more ruby.
-
-
+* Actually I found a script for a task like this is a bit over-killed. Check out the better approach in dot_bash_profile
+* [Link to the original post on my blog](http://ricochen.wordpress.com/2012/01/25/open-a-new-tab-or-window-in-mac-osx-terminal-and-run-command/)
